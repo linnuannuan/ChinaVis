@@ -16,6 +16,17 @@ let DataService = new Vue({
           console.log(errResponse)
         })
     },
+    // load mapdata
+    loadMapData(callback){
+      this.axios.get(`${this.dataServerUrl}/getdata`)
+        .then(response => {
+          callback(response.data)
+        }, errResponse => {
+          console.log(errResponse)
+        })
+    },
+
+
     // HTTP POST request
     loadPost(param, callback){
       this.axios.post(`${this.dataServerUrl}/post`, param)
@@ -25,6 +36,16 @@ let DataService = new Vue({
           console.log(errResponse)
         })
     },
+
+    //loadMapDataBy parameter
+    // loadMapParameterData(param, callback){
+    //   this.axios.post(`${this.dataServerUrl}/get_data_by_param`,param)
+    //     .then(response => {
+    //       callback(response.data)
+    //     }, errResponse => {
+    //       console.log(errResponse)
+    //     })
+    // },
   }
 });
 

@@ -1,31 +1,22 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <br>
-    {{ getData }}
-    <br>
-    {{ loadData }}
-    <br>
-    <br>
-    {{dataName && dataValue? dataName + ' : ' + dataValue: 'click on bars in d3 to initiate events'}}
-    <br>
-    <br>
-    <echarts-bar class="echarts" :get-data="getData"></echarts-bar>
-    <d3-bar class="d3" :load-data="loadData"></d3-bar>
+    <Map class="overview" :map-data="mapData"></Map>
   </div>
 </template>
 
 <script>
   import DataService from "./utils/data-service";
   import EventService from "./utils/event-service";
-  import EchartsBar from "./components/echarts-bar";
-  import D3Bar from "./components/d3-bar";
+  // import EchartsBar from "./components/echarts-bar";
+  // import D3Bar from "./components/d3-bar";
+  import Map from "./components/map";
 
   export default {
     name: 'App',
     components: {
-      D3Bar,
-      EchartsBar
+      // D3Bar,
+      // EchartsBar,
+      Map,
     },
     data() {
       return {
@@ -33,6 +24,7 @@
         getData: null,
         loadParam: {'data': 'load'},
         loadData: null,
+        mapData:null,
 
         // data for event handling in EventService
         dataName: null,
@@ -50,6 +42,18 @@
         this.loadData = data;
       });
 
+      //load map data
+      DataService.loadMapData( (data)=>{
+        this.mapData = data;
+        // this.loadingMap = false;
+      });
+
+      // DataService.loadMapParameterData((data)=>{
+      //   this.mapData = data;
+      //   // this.loadingMap = false;
+      // });
+
+
       // Event handling for d3-bar
       EventService.onSelected((name, value) => {
         this.dataName = name;
@@ -60,6 +64,7 @@
 </script>
 
 <style>
+
   #app {
     font-family: Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -69,21 +74,12 @@
     margin-top: 60px;
   }
 
-  .echarts{
+  .overview{
     position:absolute;
     left: 3%;
-    width: 45%;
+    width: 94%;
     height: 400px;
     border: 2px solid steelblue;
-    border-radius: 4px;
-  }
-
-  .d3{
-    position:absolute;
-    right: 3%;
-    width: 45%;
-    height: 400px;
-    border: 2px solid darkred;
     border-radius: 4px;
   }
 </style>

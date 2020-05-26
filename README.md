@@ -30,7 +30,7 @@ $ deactivate
 For this project, we will be installing flask and jupyter lab to facilitate development. Install the dependencies using:
 ```
 # Install the specified dependencies
-$ pip install -r requirements.txt
+$ pip install -r requirement.txt
 
 # Export your own dependencies
 $ pip freeze > requirement.txt
